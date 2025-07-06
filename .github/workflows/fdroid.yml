@@ -16,8 +16,8 @@ jobs:
       - name: Clone fdroidserver repo (shallow)
         run: git clone --depth=1 https://gitlab.com/fdroid/fdroidserver ~/fdroidserver
 
-      - name: Install Docker
-        run: sudo apt-get update && sudo apt-get install -y docker.io
+      - name: Install Deps
+        run: sudo apt-get update
 
       - name: Run fdroid readmeta
         run: |
