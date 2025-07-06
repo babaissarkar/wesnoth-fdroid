@@ -1,0 +1,38 @@
+Categories:
+  - Games
+  - Internet
+License: GPL-2.0-or-later
+WebSite: https://www.wesnoth.org
+SourceCode: https://github.com/wesnoth/wesnoth
+IssueTracker: https://github.com/wesnoth/wesnoth/issues
+Translation: https://wiki.wesnoth.org/WesnothTranslations
+Liberapay: Wesnoth
+
+Name: The Battle for Wesnoth
+
+RepoType: git
+Repo: https://github.com/wesnoth/wesnoth
+
+Builds:
+  - versionName: 1.19.13
+    versionCode: 11913
+    commit: aa61f52cdbd1da4228356c9380a32d006e89cc8f
+    subdir: packaging/android
+    gradle:
+      - yes
+    output: "['app/build/outputs/apk/release/app-arm64-v8a-release.apk', 'app/build/outputs/apk/release/app-armeabi-v7a-release.apk',\
+      \ 'app/build/outputs/apk/release/app-x86_64-release.apk', 'app/build/outputs/apk/release/app-x86-release.apk']"
+    prebuild:
+      - env
+      - echo "NDK is at $$NDK$$"
+      - rm -vf ../../data/test/scenarios/cve_tests/bytecode.bin
+      - rm -vf ../../utils/mp-server/logfilter_irc_color
+      - rm -vf ../../utils/mp-server/logfilter_irc_logged_color
+    preassemble:
+      - buildCppDepends
+      - buildCppSource
+
+AutoUpdateMode: None
+UpdateCheckMode: None
+CurrentVersion: 1.19.13
+CurrentVersionCode: 11913

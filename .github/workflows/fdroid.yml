@@ -1,0 +1,90 @@
+name: F-Droid Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fdroid:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your fdroiddata repo
+        uses: actions/checkout@v4
+        with:
+          path: fdroiddata
+
+      - name: Clone fdroidserver repo (shallow)
+        run: git clone --depth=1 https://gitlab.com/fdroid/fdroidserver ~/fdroidserver
+
+      - name: Install Docker
+        run: sudo apt-get update && sudo apt-get install -y docker.io
+
+      - name: Run fdroid readmeta
+        run: |
+          docker run --rm -i \
+            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
+            registry.gitlab.com/fdroid/fdroidserver:buildserver \
+            /bin/bash -c '
+              source /etc/profile
+              export fdroidserver=/home/vagrant/fdroidserver
+              export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
+              cd /build
+              fdroid readmeta
+            '
+
+      - name: Run fdroid rewritemeta
+        run: |
+          docker run --rm -i \
+            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
+            registry.gitlab.com/fdroid/fdroidserver:buildserver \
+            /bin/bash -c '
+              source /etc/profile
+              export fdroidserver=/home/vagrant/fdroidserver
+              export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
+              cd /build
+              fdroid rewritemeta com.example
+            '
+
+      - name: Run fdroid checkupdates
+        run: |
+          docker run --rm -i \
+            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
+            registry.gitlab.com/fdroid/fdroidserver:buildserver \
+            /bin/bash -c '
+              source /etc/profile
+              export fdroidserver=/home/vagrant/fdroidserver
+              export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
+              cd /build
+              fdroid checkupdates --allow-dirty com.example
+            '
+
+      - name: Run fdroid lint
+        run: |
+          docker run --rm -i \
+            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
+            registry.gitlab.com/fdroid/fdroidserver:buildserver \
+            /bin/bash -c '
+              source /etc/profile
+              export fdroidserver=/home/vagrant/fdroidserver
+              export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
+              cd /build
+              fdroid lint com.example
+            '
+
+      - name: Run fdroid build
+        run: |
+          docker run --rm -i \
+            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
+            registry.gitlab.com/fdroid/fdroidserver:buildserver \
+            /bin/bash -c '
+              source /etc/profile
+              export fdroidserver=/home/vagrant/fdroidserver
+              export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
+              cd /build
+              fdroid build com.example
+            '
