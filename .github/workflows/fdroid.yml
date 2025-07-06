@@ -44,7 +44,7 @@ jobs:
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
               cd /build
-              fdroid rewritemeta com.example
+              fdroid rewritemeta org.wesnoth.Wesnoth
             '
 
       - name: Run fdroid checkupdates
@@ -58,7 +58,7 @@ jobs:
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
               cd /build
-              fdroid checkupdates --allow-dirty com.example
+              fdroid checkupdates --allow-dirty org.wesnoth.Wesnoth
             '
 
       - name: Run fdroid lint
@@ -72,7 +72,7 @@ jobs:
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
               cd /build
-              fdroid lint com.example
+              fdroid lint org.wesnoth.Wesnoth
             '
 
       - name: Run fdroid build
@@ -86,5 +86,5 @@ jobs:
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
               cd /build
-              fdroid build com.example
+              fdroid build org.wesnoth.Wesnoth
             '
