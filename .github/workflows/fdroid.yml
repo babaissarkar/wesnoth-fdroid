@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout your fdroiddata repo
-        uses: actions/checkout@v4
-        with:
-          path: fdroiddata
+      - name: Clone GitLab repo (public)
+        run: git clone --depth=1 https://gitlab.com/Pentarctagon/fdroiddata ~/fdroiddata
 
       - name: Clone fdroidserver repo (shallow)
         run: git clone --depth=1 https://gitlab.com/fdroid/fdroidserver ~/fdroidserver
