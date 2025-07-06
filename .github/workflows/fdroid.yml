@@ -1,7 +1,9 @@
 name: F-Droid Build
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   fdroid:
