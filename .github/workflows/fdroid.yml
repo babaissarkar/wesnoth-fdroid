@@ -14,7 +14,7 @@ jobs:
         run: git clone --depth=1 https://gitlab.com/Pentarctagon/fdroiddata ~/fdroiddata
         
       - name: Branch change
-        run: git checkout org.wesnoth.Wesnoth
+        run: cd ~/fdroiddata && git checkout org.wesnoth.Wesnoth
 
       - name: Clone fdroidserver repo (shallow)
         run: git clone --depth=1 https://gitlab.com/fdroid/fdroidserver ~/fdroidserver
