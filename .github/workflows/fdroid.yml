@@ -77,6 +77,9 @@ jobs:
             -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
             registry.gitlab.com/fdroid/fdroidserver:buildserver \
             /bin/bash -c '
+              pwd
+              ls -lh
+              ls -lh ~/fdroiddata
               source /etc/profile
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
