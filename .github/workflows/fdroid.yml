@@ -78,5 +78,5 @@ jobs:
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
               cd /build
-              fdroid build org.wesnoth.Wesnoth
+              fdroid build --skip-git org.wesnoth.Wesnoth
             '
