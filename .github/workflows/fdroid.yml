@@ -49,20 +49,6 @@ jobs:
               fdroid rewritemeta org.wesnoth.Wesnoth
             '
 
-      - name: Run fdroid checkupdates
-        run: |
-          docker run --rm -i \
-            -v ${{ github.workspace }}/fdroiddata:/build:z \
-            -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
-            registry.gitlab.com/fdroid/fdroidserver:buildserver \
-            /bin/bash -c '
-              source /etc/profile
-              export fdroidserver=/home/vagrant/fdroidserver
-              export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
-              cd /build
-              fdroid checkupdates --allow-dirty org.wesnoth.Wesnoth
-            '
-
       - name: Run fdroid lint
         run: |
           docker run --rm -i \
