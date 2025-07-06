@@ -21,6 +21,9 @@ jobs:
       - name: Install Deps
         run: sudo apt-get update
 
+      - name: Fix config.yml permissions
+        run: chmod 600 ${{ github.workspace }}/fdroiddata/config.yml
+
       - name: Run fdroid readmeta
         run: |
           docker run --rm -i \
@@ -70,6 +73,7 @@ jobs:
             -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
             registry.gitlab.com/fdroid/fdroidserver:buildserver \
             /bin/bash -c '
+              ls -la /build/.git
               source /etc/profile
               export fdroidserver=/home/vagrant/fdroidserver
               export PATH="$fdroidserver:$PATH" PYTHONPATH="$fdroidserver"
