@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Clone GitLab repo (public)
-        run: git clone https://gitlab.com/Pentarctagon/fdroiddata ~/fdroiddata
+        run: git clone --branch org.wesnoth.Wesnoth https://gitlab.com/Pentarctagon/fdroiddata ~/fdroiddata
         
       - name: Branch change
         run: |
           cd ~/fdroiddata
-          git branch
+          git branch -r
           git checkout org.wesnoth.Wesnoth
 
       - name: Clone fdroidserver repo (shallow)
