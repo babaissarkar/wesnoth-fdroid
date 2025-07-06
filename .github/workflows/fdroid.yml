@@ -20,12 +20,12 @@ jobs:
         run: sudo apt-get update
 
       - name: Fix config.yml permissions
-        run: chmod 600 ${{ github.workspace }}/fdroiddata/config.yml
+        run: chmod 600 $HOME/fdroiddata/config.yml
 
       - name: Run fdroid readmeta
         run: |
           docker run --rm -i \
-            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v $HOME/fdroiddata:/build:z \
             -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
             registry.gitlab.com/fdroid/fdroidserver:buildserver \
             /bin/bash -c '
@@ -39,7 +39,7 @@ jobs:
       - name: Run fdroid rewritemeta
         run: |
           docker run --rm -i \
-            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v $HOME/fdroiddata:/build:z \
             -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
             registry.gitlab.com/fdroid/fdroidserver:buildserver \
             /bin/bash -c '
@@ -53,7 +53,7 @@ jobs:
       - name: Run fdroid lint
         run: |
           docker run --rm -i \
-            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v $HOME/fdroiddata:/build:z \
             -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
             registry.gitlab.com/fdroid/fdroidserver:buildserver \
             /bin/bash -c '
@@ -67,7 +67,7 @@ jobs:
       - name: Run fdroid build
         run: |
           docker run --rm -i \
-            -v ${{ github.workspace }}/fdroiddata:/build:z \
+            -v $HOME/fdroiddata:/build:z \
             -v ~/fdroidserver:/home/vagrant/fdroidserver:Z \
             registry.gitlab.com/fdroid/fdroidserver:buildserver \
             /bin/bash -c '
